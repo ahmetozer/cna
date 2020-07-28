@@ -6,10 +6,10 @@ docker-build-master:
   services:
     - docker:dind
   before_script:
-    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+    - docker login -u "$duser" -p "$dhub"
   script:
-    - docker build --pull -t "$CI_REGISTRY_IMAGE" .
-    - docker push "$CI_REGISTRY_IMAGE"
+    - docker build --pull --rm -t "$duser/cna" .
+    - docker push "$duser/cna"
   only:
     - master
 
