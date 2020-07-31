@@ -9,6 +9,7 @@ docker-build-master:
   services:
     - docker:dind
   before_script:
+    - service docker start
     - docker login -u "$duser" -p "$dhub"
   script:
     - docker build --pull --rm -t "$duser/cna" .
