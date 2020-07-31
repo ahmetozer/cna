@@ -2,12 +2,11 @@
 
 docker-build-master:
   # Official docker image.
-  variables: 
-      DOCKER_HOST: tcp://127.0.0.1:2375  
+
   image: ahmetozer/dind
   stage: build
   services:
-    - ahmetozer/dind
+    - docker:dind
   before_script:
     - service docker start
     - docker login -u "$duser" -p "$dhub"
