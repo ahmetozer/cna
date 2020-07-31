@@ -5,8 +5,6 @@ docker-build-master:
 
   image: ahmetozer/dind
   stage: build
-  services:
-    - docker:dind
   before_script:
     - service docker start
     - docker login -u "$duser" -p "$dhub"
