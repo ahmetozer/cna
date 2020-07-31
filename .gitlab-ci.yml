@@ -1,11 +1,11 @@
 # This file is a template, and might need editing before it works on your project.
+environment: 
+      DOCKER_HOST: tcp://localhost:2375  
 docker-build-master:
   # Official docker image.
   image: docker:latest
   stage: build
   services:
-    environment: 
-      DOCKER_HOST: tcp://localhost:2375  
     - docker:dind
   before_script:
     - docker login -u "$duser" -p "$dhub"
