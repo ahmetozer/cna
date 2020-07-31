@@ -4,6 +4,8 @@ docker-build-master:
   image: docker:latest
   stage: build
   services:
+    environment: 
+      DOCKER_HOST: tcp://localhost:2375  
     - docker:dind
   before_script:
     - docker login -u "$duser" -p "$dhub"
