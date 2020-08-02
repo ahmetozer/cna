@@ -1,18 +1,16 @@
-# This file is a template, and might need editing before it works on your project.
-
 docker-build-master:
-  # Official docker image.
-
-  image: ahmetozer/dind
+  variables:
+    buildx: "yes"
+  image: ahmetozer/dind:latest
   stage: build
   before_script:
-    - service docker start
-    - docker login -u "$duser" -p "$dhub"
+    - /src/start-docker.sh
+    - docker login -u "ahmetozer" -p "$dhub"
   script:
-    - docker build --pull --rm -t "$duser/cna" .
-    - docker push "$duser/cna"
+    - docker buildx build --platform linux/amd64,linux/arm64,linux/arm --push -t ahmetozer/cna .
   only:
     - master
+
 
 docker-build:
   # Official docker image.
