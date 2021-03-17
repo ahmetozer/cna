@@ -4,6 +4,8 @@ This container is contains some regular network tools on ubuntu.
 
 Using for Container HOST network
 
+## Linux
+
 ```bash
 docker run -it --rm --network=host ahmetozer/cna
 ```
@@ -42,4 +44,13 @@ cna
 cna mycontainer ifconfig
 # run with command on host
 cna host iptraf-ng
+```
+
+## Windows
+
+You can use CNA in WSL2 backend docker
+Add cna as DOSKEY on cmd.
+
+```cmd
+DOSKEY cna=docker run -it --rm --privileged -e WSL=yes --network host -v /proc/:/proc2/ -v /var/run/docker.sock:/var/run/docker.sock ahmetozer/cna /usr/bin/ENTRYPOINT.sh $*
 ```
