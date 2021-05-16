@@ -15,7 +15,7 @@ Using for inside the Container Network
 ```bash
 container_name="teredo-container"   # This is your container to which is do you want to make a network inspect
 
-docker run -it --rm --privileged -v /proc/$(docker inspect -f '{{.State.Pid}}' $container_name)/ns/net:/var/run/netns/container ahmetozer/cna
+docker run -it --rm --privileged --net container:teredo-container ahmetozer/cna
 ```
 
 You can add bash function for more easy execution
@@ -27,9 +27,9 @@ container_name="$1"   # This is your container to which is do you want to make a
 shift 1
 if [ -z "$container_name" ] || [ "$container_name" == "host" ]
 then
-    docker run -it --rm --privileged --network host ahmetozer/cna $@
+    docker run -it --rm --privileged --pid host --network host ahmetozer/cna $@
 else
-    docker run -it --rm --privileged -v /proc/$(docker inspect -f '{{.State.Pid}}' $container_name)/ns/net:/var/run/netns/container ahmetozer/cna $@
+    docker run -it --rm --privileged --pid container:$container_name --net container:$container_name ahmetozer/cna $@
 fi
 }
 ```
