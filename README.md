@@ -32,6 +32,24 @@ else
     docker run -it --rm --privileged --pid container:$container_name --net container:$container_name ahmetozer/cna $@
 fi
 }
+
+_cna_completions() {
+    nettools=("ping" "traceroute" "tcpdump" "route" "bwm-ng" "iptraf-ng" "iftop" "nethogs"
+    "iperf3" "nmap" "nc" "curl" "wget" "ethtool" "socat" "ifconfig" "ip"
+    "nslookup" "whois" "mtr" "arping" "brctl" "iptables" "ip6tables" "bash")
+    if [ ${#COMP_WORDS[@]} -lt 3 ]; then
+        local containers=($(docker ps -aq --no-trunc))
+        local names=($(docker inspect --format '{{.Name}}' "${containers[@]}"))
+        names=("${names[@]#/}")
+        names+=('host')
+        COMPREPLY=($(compgen -W "${names[*]}" "${COMP_WORDS[1]}"))
+    elif [ ${#COMP_WORDS[@]} -eq 3 ]; then
+        COMPREPLY=($(compgen -W "${nettools[*]}" "${COMP_WORDS[2]}"))
+    fi
+}
+
+complete -F _cna_completions cna
+
 ```
 
 ```bash
