@@ -10,6 +10,7 @@ dnsutils whois mtr-tiny traceroute arping ethtool pppoe bridge-utils iptables ca
 find /var/lib/apt/lists/ -maxdepth 1 -type f -print0 | xargs -0 rm
 
 COPY ENTRYPOINT.sh /usr/bin/ENTRYPOINT.sh
+LABEL org.opencontainers.image.source="https://github.com/ahmetozer/cna"
 RUN chmod +x /usr/bin/ENTRYPOINT.sh && echo "build_date=\"$(date +"%d/%m/%Y %X")"\" > /root/.cna_env
 
 CMD [ "/usr/bin/ENTRYPOINT.sh" ]
