@@ -7,7 +7,7 @@ Using for Container HOST network
 ## Linux
 
 ```bash
-docker run -it --rm --network=host ahmetozer/cna
+docker run -it --rm --network=host ghcr.io/ahmetozer/cna:latest
 ```
 
 Using for inside the Container Network
@@ -15,7 +15,7 @@ Using for inside the Container Network
 ```bash
 container_name="teredo-container"   # This is your container to which is do you want to make a network inspect
 
-docker run -it --rm --privileged --net container:teredo-container ahmetozer/cna
+docker run -it --rm --privileged --net container:teredo-container ghcr.io/ahmetozer/cna:latest
 ```
 
 You can add bash function for more easy execution
@@ -27,9 +27,9 @@ container_name="$1"   # This is your container to which is do you want to make a
 shift 1
 if [ -z "$container_name" ] || [ "$container_name" == "host" ]
 then
-    docker run -it --rm --privileged --pid host --network host ahmetozer/cna $@
+    docker run -it --rm --privileged --pid host --network host ghcr.io/ahmetozer/cna:latest $@
 else
-    docker run -it --rm --privileged --pid container:$container_name --net container:$container_name ahmetozer/cna $@
+    docker run -it --rm --privileged --pid container:$container_name --net container:$container_name ghcr.io/ahmetozer/cna:latest $@
 fi
 }
 
@@ -70,5 +70,5 @@ You can use CNA in WSL2 backend docker
 Add cna as DOSKEY on cmd.
 
 ```cmd
-DOSKEY cna=docker run -it --rm --privileged -e WSL=yes --network host -v /proc/:/proc2/ -v /var/run/docker.sock:/var/run/docker.sock ahmetozer/cna /usr/bin/ENTRYPOINT.sh $*
+DOSKEY cna=docker run -it --rm --privileged -e WSL=yes --network host -v /proc/:/proc2/ -v /var/run/docker.sock:/var/run/docker.sock ghcr.io/ahmetozer/cna:latest /usr/bin/ENTRYPOINT.sh $*
 ```
