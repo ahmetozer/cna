@@ -1,6 +1,6 @@
 # Network Tools for Containers
 
-This container is contains some regular network tools on ubuntu.
+Distroless and rootless network tools
 
 Using for Container HOST network
 
