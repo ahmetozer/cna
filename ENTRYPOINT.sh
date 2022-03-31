@@ -12,7 +12,6 @@ if [ "$WSL" == "yes" ]; then
     container_name=${container_name-$1}
     shift 1
 fi
-source /root/.cna_env
 if [ ! -z "$container_name" ]; then
     [[ "$debug" == "yes" ]] && echo -e "\t${cl_wh}Container name detected: ${cl_cy}$container_name${cl_nc}"
     if [ -d "/proc2/" ]; then

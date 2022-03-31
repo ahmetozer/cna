@@ -1,6 +1,6 @@
 # Network Tools for Containers
 
-This container is contains some regular network tools on ubuntu.
+Distroless and rootless network tools
 
 Using for Container HOST network
 
@@ -34,9 +34,9 @@ fi
 }
 
 _cna_completions() {
-    nettools=("ping" "traceroute" "tcpdump" "route" "bwm-ng" "iptraf-ng" "iftop" "nethogs"
-    "iperf3" "nmap" "nc" "curl" "wget" "ethtool" "socat" "ifconfig" "ip"
-    "nslookup" "whois" "mtr" "arping" "brctl" "iptables" "ip6tables" "bash")
+    nettools=("ping" "traceroute" "tcpdump"
+    "iperf3" "nmap" "netcat" "curl" "ethtool" "socat" "ip"
+    "nslookup" "whois" "bash")
     if [ ${#COMP_WORDS[@]} -lt 3 ]; then
         local containers=($(docker ps -aq --no-trunc))
         local names=($(docker inspect --format '{{.Name}}' "${containers[@]}"))
