@@ -66,5 +66,6 @@ echo ok
 FROM scratch
 COPY --from=base /opt /
 LABEL org.opencontainers.image.source="https://github.com/ahmetozer/cna"
+ENV PS1="@\h \w> "
 USER 65534
 CMD [ "/usr/bin/ENTRYPOINT.sh" ]

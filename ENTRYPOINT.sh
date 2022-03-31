@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Colors
 cl_red='\e[31m'
