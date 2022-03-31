@@ -1,20 +1,18 @@
 # Network Tools for Containers
 
-Distroless and rootless network tools
-
-Using for Container HOST network
+Distroless and rootless network tools in a container.
 
 ## Linux
 
+Using for container host network
+
 ```bash
-docker run -it --rm --network=host ghcr.io/ahmetozer/cna:latest
+docker run -it --rm --network=host --cap-add=CAP_NET_BIND_SERVICE --cap-add=CAP_NET_RAW --cap-add=CAP_NET_ADMIN ghcr.io/ahmetozer/cna:latest
 ```
 
 Using for inside the Container Network
 
 ```bash
-container_name="teredo-container"   # This is your container to which is do you want to make a network inspect
-
 docker run -it --rm --privileged --net container:teredo-container ghcr.io/ahmetozer/cna:latest
 ```
 
@@ -23,14 +21,14 @@ You can add bash function for more easy execution
 ```bash
 # You can add to .bashrc
 function cna {
-container_name="$1"   # This is your container to which is do you want to make a network inspect
-shift 1
-if [ -z "$container_name" ] || [ "$container_name" == "host" ]
-then
-    docker run -it --rm --privileged --pid host --network host ghcr.io/ahmetozer/cna:latest $@
-else
-    docker run -it --rm --privileged --pid container:$container_name --net container:$container_name ghcr.io/ahmetozer/cna:latest $@
-fi
+    container_name="$1"   # This is your container to which is do you want to make a network inspect
+    shift 1
+    if [ -z "$container_name" ] || [ "$container_name" == "host" ]
+    then
+        docker run -it --rm --cap-add=CAP_NET_BIND_SERVICE --cap-add=CAP_NET_RAW --cap-add=CAP_NET_ADMIN --pid host --network host ghcr.io/ahmetozer/cna:latest $@
+    else
+        docker run -it --rm --cap-add=CAP_NET_BIND_SERVICE --cap-add=CAP_NET_RAW --cap-add=CAP_NET_ADMIN --pid container:$container_name --net container:$container_name ghcr.io/ahmetozer/cna:latest $@
+    fi
 }
 
 _cna_completions() {
@@ -59,9 +57,9 @@ cna mycontainer
 cna
 
 # run with command
-cna mycontainer ifconfig
+cna mycontainer ip a
 # run with command on host
-cna host iptraf-ng
+cna host tcpdump -n
 ```
 
 ## Windows
